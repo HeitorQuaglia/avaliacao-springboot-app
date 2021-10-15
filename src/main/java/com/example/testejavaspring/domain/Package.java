@@ -1,5 +1,6 @@
 package com.example.testejavaspring.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Package {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

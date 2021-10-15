@@ -4,12 +4,8 @@ import com.example.testejavaspring.domain.Package;
 import com.example.testejavaspring.repositories.PackageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -24,16 +20,16 @@ public class PackageController {
 //    }
 
     @GetMapping(value = "/{packageId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Package getPackage(@PathVariable UUID packageId) {
-        return packageRepository.getById(packageId);
+    public Package getPackage(@PathVariable String packageId) {
+        return packageRepository.getById(UUID.fromString(packageId));
     }
 
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Object searchPackage(String query) {
-        if (query.startsWith("#")) {
-            return packageRepository.findPackageByCode(query);
+    public Object searchPackage(@RequestParam String q) {
+        if (q.startsWith("$")) {
+            return packageRepository.findPackageByCode(q);
         } else {
-            return packageRepository.findAllPackagesByCpf(query);
+            return packageRepository.findAllPackagesByCpf(q);
         }
     }
 }
