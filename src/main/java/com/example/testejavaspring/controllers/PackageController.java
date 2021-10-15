@@ -14,16 +14,6 @@ public class PackageController {
     @Autowired
     PackageRepository packageRepository;
 
-//    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public List<Package> getAll() {
-//        return packageRepository.findAll();
-//    }
-
-    @GetMapping(value = "/{packageId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Package getPackage(@PathVariable String packageId) {
-        return packageRepository.getById(UUID.fromString(packageId));
-    }
-
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public Object searchPackage(@RequestParam String q) {
         if (q.startsWith("$")) {
