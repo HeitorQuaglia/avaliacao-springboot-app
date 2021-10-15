@@ -14,7 +14,8 @@ public class Package {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, unique = true, nullable = false)
     private UUID id;
-    private String barcode;
+    private String code;
+    private String cpf;
     private String description;
     private String type;
     private String deliveryAddress;
