@@ -18,13 +18,22 @@ public class PackageController {
     @Autowired
     PackageRepository packageRepository;
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Package> getAll() {
-        return packageRepository.findAll();
-    }
+//    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public List<Package> getAll() {
+//        return packageRepository.findAll();
+//    }
 
     @GetMapping(value = "/{packageId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Package getPackage(@PathVariable UUID packageId) {
         return packageRepository.getById(packageId);
+    }
+
+    @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Object searchPackage(String query) {
+        if (query.startsWith("#")) {
+            return packageRepository.findPackageByCode(query);
+        } else {
+            return packageRepository.findAllPackagesByCpf(query);
+        }
     }
 }
